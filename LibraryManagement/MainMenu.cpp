@@ -17,7 +17,7 @@ int select_main_option() {
     cout << "\nPlease select a number: ";
     cin >> n;
     if (n >= 0 && n <= 5) return n;
-    else return select_main_option();
+    return select_main_option();
 }
 
 void execute_main_selection() {
