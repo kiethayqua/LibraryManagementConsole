@@ -26,6 +26,7 @@ void execute_reader_selection(int &option) {
             update_reader_card();
             break;
         case 4:
+            delete_reader_card();
             break;
         case 5:
             break;

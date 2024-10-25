@@ -67,7 +67,6 @@ void get_reader_card_records() {
 void update_reader_card() {
     string reader_id = input_string("Please input ID: ", INPUT_TYPE_NUMBER);
     int reader_card_index = find_reader_card_by_id(reader_id);
-    cout << "KIET_DEBUG_READER_CARD_INDEX: " << reader_card_index << endl;
     if (reader_card_index != -1) {
         system("cls");
         show_update_card_reader_menu();
@@ -130,5 +129,29 @@ void execute_update_card_reader_selection(int &option,int index) {
         case 0:
             system("cls");
         break;
+    }
+}
+
+void delete_reader_card() {
+    string reader_id = input_string("Please input ID: ", INPUT_TYPE_NUMBER);
+    int reader_card_index = find_reader_card_by_id(reader_id);
+    if (reader_card_index != -1) {
+        if (reader_card_index == reader_card_records - 1) {
+            reader_card_records--;
+            return;
+        }
+        for (int i = reader_card_index; i < reader_card_records; i++) {
+            reader_name_records[i] = reader_name_records[i + 1];
+            reader_id_records[i] = reader_id_records[i + 1];
+            reader_dob_records[i] = reader_dob_records[i + 1];
+            reader_gender_records[i] = reader_gender_records[i + 1];
+            reader_email_records[i] = reader_email_records[i + 1];
+            reader_address_records[i] = reader_address_records[i + 1];
+            reader_card_created_date_records[i] = reader_card_created_date_records[i + 1];
+            reader_card_expired_date_records[i] = reader_card_expired_date_records[i + 1];
+        }
+        reader_card_records--;
+    } else {
+
     }
 }
