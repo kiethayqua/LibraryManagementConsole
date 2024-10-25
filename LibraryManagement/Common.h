@@ -16,3 +16,4 @@ bool is_valid_date(string date);
 bool is_valid_gender(int gender);
 string input_string(string message, string type);
 int input_gender();
+int select_menu_option(int from, int to);

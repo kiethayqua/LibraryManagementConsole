@@ -13,16 +13,8 @@ void show_reader_menu() {
     cout << "==================================================\n";
 }
 
-int select_reader_option() {
-    int n;
-    cout << "\nPlease select a number: ";
-    cin >> n;
-    if (n >= 0 && n <= 5) return n;
-    return select_reader_option();
-}
-
 void execute_reader_selection(int &option) {
-    option = select_reader_option();
+    option = select_menu_option(0, 5);
     switch (option) {
         case 1:
             get_reader_card_records();
@@ -31,6 +23,7 @@ void execute_reader_selection(int &option) {
             create_reader_card();
             break;
         case 3:
+            update_reader_card();
             break;
         case 4:
             break;

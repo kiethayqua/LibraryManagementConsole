@@ -30,7 +30,7 @@ bool is_valid_date(string date) {
 }
 
 bool is_valid_gender(int gender) {
-    return (gender == 0 || gender != 1);
+    return (gender == 0 || gender == 1);
 }
 
 string input_string(string message, string type) {
@@ -65,5 +65,13 @@ int input_gender() {
     } while (!valid);
 
     return input;
+}
+
+int select_menu_option(int from, int to) {
+    int n;
+    cout << "\nPlease select a number: ";
+    cin >> n;
+    if (n >= from && n <= to) return n;
+    return select_menu_option(from, to);
 }
 

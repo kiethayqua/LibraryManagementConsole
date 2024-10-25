@@ -15,4 +15,5 @@ add_executable(LibraryManagementConsole
     LibraryManagement/ReaderMenu.cpp
     LibraryManagement/ReaderMenu.h
     LibraryManagement/VariadicTable.h
-        LibraryManagement/Common.cpp)
+        LibraryManagement/Common.cpp
+)

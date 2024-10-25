@@ -1,5 +1,6 @@
 #include "MainMenu.h"
 #include "ReaderMenu.h"
+#include "Common.h"
 
 void show_main_menu() {
     cout << "=================LIBRARY MANAGEMENT================\n";
@@ -12,16 +13,8 @@ void show_main_menu() {
     cout << "===================================================\n";
 }
 
-int select_main_option() {
-    int n;
-    cout << "\nPlease select a number: ";
-    cin >> n;
-    if (n >= 0 && n <= 5) return n;
-    return select_main_option();
-}
-
 void execute_main_selection() {
-    int option = select_main_option();
+    int option = select_menu_option(0, 5);
     switch (option) {
     case 1:
         system("cls");
