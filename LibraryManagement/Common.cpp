@@ -36,7 +36,7 @@ string input_string(string message, string type) {
     bool valid;
     string input;
     do {
-        cout << message << endl;
+        cout << message;
         cin.ignore(0);
         getline(cin, input);
         if (type == INPUT_TYPE_NAME) {
@@ -84,4 +84,24 @@ void clear_screen() {
 #elif defined (__APPLE__)
     system("clear");
 #endif
+}
+
+int str_contains(string str1, string str2) {
+    char first_char_of_str2 = str2.at(0);
+    int size_of_str2 = str2.size();
+    
+    for (int i = 0; i < str1.size(); i++) {
+        if (str1.at(i) == first_char_of_str2 && i + size_of_str2 - 1 < str1.size()) {
+            int k = 0;
+            for (int j = i; j < i + size_of_str2; j++) {
+                if (str1.at(j) == str2.at(k)) {
+                    k++;
+                }
+                else break;
+            }
+            if (k == size_of_str2) return i;
+        }
+    }
+
+    return -1;
 }

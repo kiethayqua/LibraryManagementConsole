@@ -19,3 +19,4 @@ string input_string(string message, string type);
 int input_gender();
 int select_menu_option(int from, int to);
 void clear_screen();
+int str_contains(string, string);

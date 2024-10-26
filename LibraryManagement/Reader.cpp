@@ -12,14 +12,14 @@ string reader_address_records[MAX_RECORDS];
 string reader_created_date_records[MAX_RECORDS];
 string reader_expired_date_records[MAX_RECORDS];
 
-int reader_card_records = 0;
+int reader_records = 0;
 
 void reader_main() {
     int option;
     do {
         clear_screen();
         show_reader_menu();
-        option = select_menu_option(0, 5);
+        option = select_menu_option(0, 6);
         execute_reader(option);
     } while (option != EXIT);
 }
@@ -27,10 +27,11 @@ void reader_main() {
 void show_reader_menu() {
     cout << "=================READER MANAGEMENT================\n";
     cout << "1. View All Readers\n";
-    cout << "2. Add Reader Card\n";
-    cout << "3. Update Reader Card\n";
-    cout << "4. Delete Reader Card\n";
-    cout << "5. Find A Reader Card (Id or Name)\n";
+    cout << "2. Add A Reader\n";
+    cout << "3. Update A Reader\n";
+    cout << "4. Delete A Reader\n";
+    cout << "5. Find A Reader By ID\n";
+    cout << "6. Find Readers By Name\n";
     cout << "0. Exit!\n";
     cout << "==================================================\n";
 }
@@ -38,7 +39,7 @@ void show_reader_menu() {
 void execute_reader(const int option) {
     switch (option) {
         case 1:
-            get_reader_records();
+            get_reader_records(0, reader_records);
             system("pause");
             break;
         case 2:
@@ -54,6 +55,12 @@ void execute_reader(const int option) {
             system("pause");
             break;
         case 5:
+            find_reader_by_id();
+            system("pause");
+            break;
+        case 6:
+            find_readers_by_name();
+            system("pause");
             break;
         case 0:
             clear_screen();
@@ -63,7 +70,7 @@ void execute_reader(const int option) {
     }
 }
 
-void get_reader_records() {
+void get_reader_records(int from, int to) {
     VariadicTable<string, string, string, string, string, string, string, string> vt({
             "Name",
             "Identification Card",
@@ -74,7 +81,7 @@ void get_reader_records() {
             "Created Date",
             "Expired Date"
         }, 30);
-    for (int i = 0; i < reader_card_records; i++) {
+    for (int i = from; i < to; i++) {
         vt.addRow(
             reader_name_records[i],
             reader_id_records[i],
@@ -100,16 +107,16 @@ void create_reader() {
     string created_date = input_string("Please input created date: ", INPUT_TYPE_DATE);
     string expired_date = input_string("Please input expired date: ", INPUT_TYPE_DATE);
 
-    if (reader_card_records < MAX_RECORDS) {
-        reader_name_records[reader_card_records] = name;
-        reader_id_records[reader_card_records] = id;
-        reader_dob_records[reader_card_records] = dob;
-        reader_gender_records[reader_card_records] = gender;
-        reader_email_records[reader_card_records] = email;
-        reader_address_records[reader_card_records] = address;
-        reader_created_date_records[reader_card_records] = created_date;
-        reader_expired_date_records[reader_card_records] = expired_date;
-        reader_card_records++;
+    if (reader_records < MAX_RECORDS) {
+        reader_name_records[reader_records] = name;
+        reader_id_records[reader_records] = id;
+        reader_dob_records[reader_records] = dob;
+        reader_gender_records[reader_records] = gender;
+        reader_email_records[reader_records] = email;
+        reader_address_records[reader_records] = address;
+        reader_created_date_records[reader_records] = created_date;
+        reader_expired_date_records[reader_records] = expired_date;
+        reader_records++;
     }
 }
 
@@ -133,11 +140,11 @@ void delete_reader() {
     const string reader_id = input_string("Please input ID: ", INPUT_TYPE_NUMBER);
     const int reader_card_index = find_reader_by_id(reader_id);
     if (reader_card_index != -1) {
-        if (reader_card_index == reader_card_records - 1) {
-            reader_card_records--;
+        if (reader_card_index == reader_records - 1) {
+            reader_records--;
             return;
         }
-        for (int i = reader_card_index; i < reader_card_records; i++) {
+        for (int i = reader_card_index; i < reader_records; i++) {
             reader_name_records[i] = reader_name_records[i + 1];
             reader_id_records[i] = reader_id_records[i + 1];
             reader_dob_records[i] = reader_dob_records[i + 1];
@@ -147,14 +154,67 @@ void delete_reader() {
             reader_created_date_records[i] = reader_created_date_records[i + 1];
             reader_expired_date_records[i] = reader_expired_date_records[i + 1];
         }
-        reader_card_records--;
+        reader_records--;
     } else {
         cout << "The reader is not exist!" << endl;
     }
 }
 
+void find_reader_by_id() {
+    const string reader_id = input_string("Please input ID: ", INPUT_TYPE_NUMBER);
+    const int reader_card_index = find_reader_by_id(reader_id);
+    if (reader_card_index != -1) {
+        get_reader_records(reader_card_index, reader_card_index + 1);
+    }
+    else {
+        cout << "The reader is not exist!" << endl;
+    }
+}
+
+void find_readers_by_name() {
+    const string reader_name = input_string("Please input name: ", "");
+    cout << "KIET_DEBUG_reader_name: " << reader_name << endl;
+    bool have_reader = false;
+    VariadicTable<string, string, string, string, string, string, string, string> vt({
+            "Name",
+            "Identification Card",
+            "Date Of Birth",
+            "Gender",
+            "Email",
+            "Address",
+            "Created Date",
+            "Expired Date"
+        }, 30);
+
+    for (int i = 0; i < reader_records; i++) {
+        int first_found_index = str_contains(reader_name_records[i], reader_name);
+        cout << "KIET_DEBUG_first_found_index: " << first_found_index << endl;
+        if (first_found_index != -1) {
+            cout << "KIET_DEBUG_found: " << i << endl;
+            vt.addRow(
+                reader_name_records[i],
+                reader_id_records[i],
+                reader_dob_records[i],
+                (reader_gender_records[i] == 0) ? "Male" : "Female",
+                reader_email_records[i],
+                reader_address_records[i],
+                reader_created_date_records[i],
+                reader_expired_date_records[i]
+            );
+            have_reader = true;
+        }
+    }
+    
+    if (have_reader) {
+        vt.print(cout);
+    }
+    else {
+        cout << "The reader is not exist!" << endl;
+    }
+}
+
 int find_reader_by_id(const string& id) {
-    for (int i = 0; i < reader_card_records; i++) {
+    for (int i = 0; i < reader_records; i++) {
         if (id == reader_id_records[i]) return i;
     }
     return -1;
