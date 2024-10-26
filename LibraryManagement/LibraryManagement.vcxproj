@@ -127,16 +127,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="MainMenu.cpp" />
-    <ClCompile Include="ReaderCard.cpp" />
+    <ClCompile Include="Common.cpp" />
     <ClCompile Include="LibraryManagement.cpp" />
-    <ClCompile Include="ReaderMenu.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Reader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common.h" />
-    <ClInclude Include="MainMenu.h" />
-    <ClInclude Include="ReaderCard.h" />
-    <ClInclude Include="ReaderMenu.h" />
+    <ClInclude Include="Main.h" />
+    <ClInclude Include="Reader.h" />
     <ClInclude Include="VariadicTable.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

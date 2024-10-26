@@ -24,9 +24,8 @@ bool is_valid_email(string email) {
 }
 
 bool is_valid_date(string date) {
-    tm tm;
-    std::string s(date);
-    return strptime(s.c_str(), "%d/%m/%Y", &tm);
+    regex date_parttern("^\\d{2}-\\d{2}-\\d{4}$");
+    return regex_match(date, date_parttern);
 }
 
 bool is_valid_gender(int gender) {

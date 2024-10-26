@@ -5,7 +5,8 @@
 void root_main() {
     int option;
     do {
-        show_reader_menu();
+        clear_screen();
+        show_main_menu();
         option = select_menu_option(0, 5);
         execute_main(option);
     } while (option != EXIT);
@@ -25,8 +26,8 @@ void show_main_menu() {
 void execute_main(const int option) {
     switch (option) {
         case 1:
-            reader_main();
             clear_screen();
+            reader_main();
             break;
         case 2:
             break;

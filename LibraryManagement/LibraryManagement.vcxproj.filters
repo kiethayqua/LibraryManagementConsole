@@ -15,33 +15,30 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Common.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="LibraryManagement.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ReaderCard.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MainMenu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ReaderMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ReaderCard.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Common.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="VariadicTable.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="MainMenu.h">
+    <ClInclude Include="Main.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="ReaderMenu.h">
+    <ClInclude Include="Reader.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

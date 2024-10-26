@@ -17,6 +17,7 @@ int reader_card_records = 0;
 void reader_main() {
     int option;
     do {
+        clear_screen();
         show_reader_menu();
         option = select_menu_option(0, 5);
         execute_reader(option);
@@ -38,19 +39,19 @@ void execute_reader(const int option) {
     switch (option) {
         case 1:
             get_reader_records();
-            clear_screen();
+            system("pause");
             break;
         case 2:
             create_reader();
-            clear_screen();
+            system("pause");
             break;
         case 3:
             update_reader();
-            clear_screen();
+            system("pause");
             break;
         case 4:
             delete_reader();
-            clear_screen();
+            system("pause");
             break;
         case 5:
             break;
