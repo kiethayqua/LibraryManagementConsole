@@ -8,12 +8,10 @@ include_directories(LibraryManagement)
 add_executable(LibraryManagementConsole
     LibraryManagement/Common.h
     LibraryManagement/LibraryManagement.cpp
-    LibraryManagement/MainMenu.cpp
-    LibraryManagement/MainMenu.h
-    LibraryManagement/ReaderCard.cpp
-    LibraryManagement/ReaderCard.h
-    LibraryManagement/ReaderMenu.cpp
-    LibraryManagement/ReaderMenu.h
-    LibraryManagement/VariadicTable.h
+        LibraryManagement/Main.cpp
+        LibraryManagement/Main.h
+        LibraryManagement/Reader.cpp
+        LibraryManagement/Reader.h
+        LibraryManagement/VariadicTable.h
         LibraryManagement/Common.cpp
 )

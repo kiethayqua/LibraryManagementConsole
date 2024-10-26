@@ -1,12 +1,7 @@
-#include "MainMenu.h"
+#include "Main.h"
 
 int main()
 {
-	show_main_menu();
-	while (true)
-	{
-		execute_main_selection();
-	}
-
+	root_main();
 	return 0;
 }

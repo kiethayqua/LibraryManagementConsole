@@ -3,6 +3,7 @@
 #include <iostream>
 using namespace std;
 
+#define EXIT 0
 #define MAX_RECORDS 100
 #define INPUT_TYPE_NAME "INPUT_TYPE_NAME"
 #define INPUT_TYPE_EMAIL "INPUT_TYPE_EMAIL"
@@ -17,3 +18,4 @@ bool is_valid_gender(int gender);
 string input_string(string message, string type);
 int input_gender();
 int select_menu_option(int from, int to);
+void clear_screen();
