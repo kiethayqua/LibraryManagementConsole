@@ -4,7 +4,6 @@
 
 #include "Common.h"
 #include <regex>
-#include <ctime>
 #include <string>
 using namespace std;
 
@@ -37,7 +36,6 @@ string input_string(string message, string type) {
     string input;
     do {
         cout << message;
-        cin.ignore(0);
         getline(cin, input);
         if (type == INPUT_TYPE_NAME) {
             valid = is_valid_name(input);
@@ -60,6 +58,7 @@ int input_gender() {
     do {
         cout << "Please input the gender (0-Male 1-Female): \n";
         cin >> input;
+        cin.ignore();
         valid = is_valid_gender(input);
     } while (!valid);
 
@@ -70,6 +69,7 @@ int select_menu_option(int from, int to) {
     int n;
     cout << "\nPlease select a number: ";
     cin >> n;
+    cin.ignore();
     if (n >= from && n <= to) return n;
     return select_menu_option(from, to);
 }
