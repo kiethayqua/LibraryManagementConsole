@@ -1,6 +1,7 @@
 #include "Main.h"
 #include "Common.h"
 #include "Reader.h"
+#include "Book.h"
 
 void root_main() {
     int option;
@@ -30,6 +31,8 @@ void execute_main(const int option) {
             reader_main();
             break;
         case 2:
+            clear_screen();
+            book_main();
             break;
         case 3:
             break;

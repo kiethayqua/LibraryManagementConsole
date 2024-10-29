@@ -14,4 +14,4 @@ void find_reader_by_id();
 int find_reader_by_id(const string& id);
 void find_readers_by_name();
 void show_update_reader_menu();
-void execute_update_reader(int option, int);
+void execute_update_reader(int option, int reader_index);

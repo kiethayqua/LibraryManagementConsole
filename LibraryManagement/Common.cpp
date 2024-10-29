@@ -23,12 +23,17 @@ bool is_valid_email(string email) {
 }
 
 bool is_valid_date(string date) {
-    regex date_parttern("^\\d{2}-\\d{2}-\\d{4}$");
+    regex date_parttern("^\\d{2}/\\d{2}/\\d{4}$");
     return regex_match(date, date_parttern);
 }
 
 bool is_valid_gender(int gender) {
     return (gender == 0 || gender == 1);
+}
+
+bool is_valid_year(string year) {
+    regex year_parttern("^\\d{4}$");
+    return regex_match(year, year_parttern);
 }
 
 string input_string(string message, string type) {
@@ -45,6 +50,8 @@ string input_string(string message, string type) {
             valid = is_valid_email(input);
         } else if (type == INPUT_TYPE_DATE) {
             valid = is_valid_date(input);
+        } else if (type == INPUT_TYPE_YEAR) {
+            valid = is_valid_year(input);
         } else {
             valid = true;
         }
@@ -56,7 +63,7 @@ int input_gender() {
     bool valid;
     int input;
     do {
-        cout << "Please input the gender (0-Male 1-Female): \n";
+        cout << "Please input the gender (0-Male 1-Female): ";
         cin >> input;
         cin.ignore();
         valid = is_valid_gender(input);

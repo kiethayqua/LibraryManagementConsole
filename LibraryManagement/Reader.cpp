@@ -62,9 +62,6 @@ void execute_reader(const int option) {
             find_readers_by_name();
             system("pause");
             break;
-        case 0:
-            clear_screen();
-            break;
         default:
             break;
     }
@@ -72,8 +69,8 @@ void execute_reader(const int option) {
 
 void get_reader_records(int from, int to) {
     VariadicTable<string, string, string, string, string, string, string, string> vt({
-            "Name",
             "Identification Card",
+            "Name",
             "Date Of Birth",
             "Gender",
             "Email",
@@ -83,8 +80,8 @@ void get_reader_records(int from, int to) {
         }, 30);
     for (int i = from; i < to; i++) {
         vt.addRow(
-            reader_name_records[i],
             reader_id_records[i],
+            reader_name_records[i],
             reader_dob_records[i],
             (reader_gender_records[i] == 0) ? "Male" : "Female",
             reader_email_records[i],
@@ -98,8 +95,8 @@ void get_reader_records(int from, int to) {
 }
 
 void create_reader() {
-    string name = input_string("Please input name: ", INPUT_TYPE_NAME);
     string id = input_string("Please input ID: ", INPUT_TYPE_NUMBER);
+    string name = input_string("Please input name: ", INPUT_TYPE_NAME);
     string dob = input_string("Please input date of birth: ", INPUT_TYPE_DATE);
     int gender = input_gender();
     string email = input_string("Please input email: ", INPUT_TYPE_EMAIL);
@@ -108,8 +105,8 @@ void create_reader() {
     string expired_date = input_string("Please input expired date: ", INPUT_TYPE_DATE);
 
     if (reader_records < MAX_RECORDS) {
-        reader_name_records[reader_records] = name;
         reader_id_records[reader_records] = id;
+        reader_name_records[reader_records] = name;
         reader_dob_records[reader_records] = dob;
         reader_gender_records[reader_records] = gender;
         reader_email_records[reader_records] = email;
@@ -124,7 +121,7 @@ void update_reader() {
     const string reader_id = input_string("Please input ID: ", INPUT_TYPE_NUMBER);
     int reader_card_index = find_reader_by_id(reader_id);
     if (reader_card_index != -1) {
-        system("cls");
+        clear_screen();
         show_update_reader_menu();
         int option;
         do {
@@ -173,11 +170,10 @@ void find_reader_by_id() {
 
 void find_readers_by_name() {
     const string reader_name = input_string("Please input name: ", "");
-    cout << "KIET_DEBUG_reader_name: " << reader_name << endl;
     bool have_reader = false;
     VariadicTable<string, string, string, string, string, string, string, string> vt({
-            "Name",
             "Identification Card",
+            "Name",
             "Date Of Birth",
             "Gender",
             "Email",
@@ -188,12 +184,10 @@ void find_readers_by_name() {
 
     for (int i = 0; i < reader_records; i++) {
         int first_found_index = str_contains(reader_name_records[i], reader_name);
-        cout << "KIET_DEBUG_first_found_index: " << first_found_index << endl;
         if (first_found_index != -1) {
-            cout << "KIET_DEBUG_found: " << i << endl;
             vt.addRow(
-                reader_name_records[i],
                 reader_id_records[i],
+                reader_name_records[i],
                 reader_dob_records[i],
                 (reader_gender_records[i] == 0) ? "Male" : "Female",
                 reader_email_records[i],
@@ -259,9 +253,6 @@ void execute_update_reader(const int option, const int index) {
             break;
         case 8:
             reader_expired_date_records[index] = input_string("Input Date: ", INPUT_TYPE_DATE);
-            break;
-        case 0:
-            system("cls");
             break;
         default:
             break;

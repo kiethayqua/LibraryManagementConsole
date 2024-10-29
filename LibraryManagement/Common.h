@@ -9,12 +9,14 @@ using namespace std;
 #define INPUT_TYPE_EMAIL "INPUT_TYPE_EMAIL"
 #define INPUT_TYPE_NUMBER "INPUT_TYPE_NUMBER"
 #define INPUT_TYPE_DATE "INPUT_TYPE_DATE"
+#define INPUT_TYPE_YEAR "INPUT_TYPE_YEAR"
 
 bool is_valid_name(string name);
 bool is_valid_number(string number);
 bool is_valid_email(string email);
 bool is_valid_date(string date);
 bool is_valid_gender(int gender);
+bool is_valid_year(string year);
 string input_string(string message, string type);
 int input_gender();
 int select_menu_option(int from, int to);
