@@ -10,6 +10,7 @@ using namespace std;
 #define INPUT_TYPE_NUMBER "INPUT_TYPE_NUMBER"
 #define INPUT_TYPE_DATE "INPUT_TYPE_DATE"
 #define INPUT_TYPE_YEAR "INPUT_TYPE_YEAR"
+#define MAX_BOOKS_CAN_LOAN 3
 
 bool is_valid_name(string name);
 bool is_valid_number(string number);

@@ -1,6 +1,7 @@
 #include "Reader.h"
 #include "VariadicTable.h"
 #include "Common.h"
+#include "Globals.h"
 
 string reader_name_records[MAX_RECORDS];
 string reader_id_records[MAX_RECORDS];

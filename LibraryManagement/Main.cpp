@@ -2,6 +2,7 @@
 #include "Common.h"
 #include "Reader.h"
 #include "Book.h"
+#include "BookLoanSlip.h"
 
 void root_main() {
     int option;
@@ -35,6 +36,7 @@ void execute_main(const int option) {
             book_main();
             break;
         case 3:
+            create_book_loan_slip();
             break;
         case 4:
             break;

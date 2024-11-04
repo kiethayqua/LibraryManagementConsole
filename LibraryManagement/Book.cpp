@@ -5,6 +5,7 @@
 #include "Book.h"
 #include "Common.h"
 #include "VariadicTable.h"
+#include "Globals.h"
 
 string book_isbn_records[MAX_RECORDS];
 string book_title_records[MAX_RECORDS];
