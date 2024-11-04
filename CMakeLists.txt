@@ -20,4 +20,6 @@ add_executable(LibraryManagementConsole
         LibraryManagement/BookLoanSlip.h
         LibraryManagement/Globals.cpp
         LibraryManagement/Globals.h
+        LibraryManagement/BookReturnSlip.cpp
+        LibraryManagement/BookReturnSlip.h
 )

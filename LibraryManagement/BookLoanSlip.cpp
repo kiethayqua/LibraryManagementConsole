@@ -4,6 +4,7 @@
 #include "BookLoanSlip.h"
 #include "Common.h"
 #include "Globals.h"
+#include "VariadicTable.h"
 
 string book_loan_reader_id_records[MAX_RECORDS];
 string book_loan_loan_date_records[MAX_RECORDS];
@@ -21,6 +22,7 @@ void create_book_loan_slip() {
         book_loan_loan_date_records[book_loan_records] = loan_date;
         book_loan_estimated_return_date_records[book_loan_records] = estimated_return_date;
         int number_of_books, book_count = 0;
+        string book_list;
         do {
             cout << "Input number of books (Upto 3 books): ";
             cin >> number_of_books;
@@ -32,10 +34,25 @@ void create_book_loan_slip() {
             const bool valid_book = check_book(book_isbn);
             if (valid_book) {
                 book_loan_isbn_list_records[book_loan_records][book_count] = book_isbn;
+                book_list += get_book_by_isbn(book_isbn) + ", ";
                 book_count++;
             }
         }
         book_loan_records++;
+        cout << "===============BOOK LOAN SLIP===============" << endl;
+        VariadicTable<string, string, string, string> vt({
+                                                             "Reader ID",
+                                                             "Loan Date",
+                                                             "Estimated Return Date",
+                                                             "Books"
+                                                         }, 30);
+        vt.addRow(
+            reader_id,
+            loan_date,
+            estimated_return_date,
+            book_list
+        );
+        vt.print(cout);
     }
 }
 
@@ -86,4 +103,15 @@ bool check_book(const string &book_isbn) {
     }
 
     return true;
+}
+
+string get_book_by_isbn(const string &book_isbn) {
+    string result;
+    for (int i = 0; i < book_records; i++) {
+        if (book_isbn_records[i] == book_isbn) {
+            result += book_isbn_records[i] + " - " + book_title_records[i];
+        }
+    }
+
+    return result;
 }

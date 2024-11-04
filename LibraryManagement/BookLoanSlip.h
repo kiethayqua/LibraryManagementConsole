@@ -8,3 +8,4 @@ using namespace std;
 void create_book_loan_slip();
 bool check_reader(const string& reader_id);
 bool check_book(const string& book_isbn);
+string get_book_by_isbn(const string& book_isbn);
