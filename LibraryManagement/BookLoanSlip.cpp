@@ -30,7 +30,8 @@ void create_book_loan_slip() {
         } while (number_of_books <= 0 || number_of_books > MAX_BOOKS_CAN_LOAN);
 
         while (book_count < number_of_books) {
-            string book_isbn = input_string("Input the book ISBN: ", "");
+            string msg = "Input the book ISBN (" + to_string(book_count + 1) + "): ";
+            string book_isbn = input_string(msg, "");
             const bool valid_book = check_book(book_isbn);
             if (valid_book) {
                 book_loan_isbn_list_records[book_loan_records][book_count] = book_isbn;
@@ -73,7 +74,7 @@ bool check_reader(const string &reader_id) {
     }
 
     for (int i = 0; i < book_loan_records; i++) {
-        if (book_loan_loan_date_records[i] == reader_id) {
+        if (book_loan_reader_id_records[i] == reader_id) {
             is_loan_exists = true;
             break;
         }

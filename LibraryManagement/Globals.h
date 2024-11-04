@@ -45,13 +45,4 @@ extern string book_loan_estimated_return_date_records[MAX_RECORDS];
 extern string book_loan_isbn_list_records[MAX_RECORDS][MAX_BOOKS_CAN_LOAN];
 extern int book_loan_records;
 
-/**
- * Global variables represent the book return slip
- */
-extern string book_return_reader_id_records[MAX_RECORDS];
-extern string book_return_loan_date_records[MAX_RECORDS];
-extern string book_return_return_date_records[MAX_RECORDS];
-extern string book_return_isbn_list_records[MAX_RECORDS][MAX_BOOKS_CAN_LOAN];
-extern int book_return_records;
-
 #endif //GLOBALS_H
