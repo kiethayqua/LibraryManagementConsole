@@ -33,28 +33,28 @@ int date_to_days(const int day, const int month, const int year) {
     return days;
 }
 
-bool parse_date(const string &dateStr, int &day, int &month, int &year) {
-    if (dateStr.size() != 10 || dateStr[2] != '/' || dateStr[5] != '/') {
+bool parse_date(const string &date, int &day, int &month, int &year) {
+    if (date.size() != 10 || date[2] != '/' || date[5] != '/') {
         return false; // Format must be exactly "dd/mm/yyyy"
     }
-    day = stoi(dateStr.substr(0, 2));
-    month = stoi(dateStr.substr(3, 2));
-    year = stoi(dateStr.substr(6, 4));
+    day = stoi(date.substr(0, 2));
+    month = stoi(date.substr(3, 2));
+    year = stoi(date.substr(6, 4));
 
     return true;
 }
 
 int get_days_late(const string &start_date, const string &end_date) {
-    int startDay, startMonth, startYear;
+    int start_day, start_month, start_year;
     int endDay, endMonth, endYear;
 
-    if (!parse_date(start_date, startDay, startMonth, startYear) ||
+    if (!parse_date(start_date, start_day, start_month, start_year) ||
         !parse_date(end_date, endDay, endMonth, endYear)) {
         return -1;
     }
 
-    const int startDays = date_to_days(startDay, startMonth, startYear);
+    const int startDays = date_to_days(start_day, start_month, start_year);
     const int endDays = date_to_days(endDay, endMonth, endYear);
 
-    return endDays - startDays;
+    return endDays - startDays - 7;
 }
