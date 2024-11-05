@@ -44,18 +44,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Common.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="VariadicTable.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Main.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Reader.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Book.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -72,6 +60,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Statistics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Main.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VariadicTable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

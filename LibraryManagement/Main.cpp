@@ -8,6 +8,7 @@
 #include "Statistics.h"
 
 void root_main() {
+    // NOTE: this line to call mock data to easy to test
     init_mock_data();
     int option;
     do {

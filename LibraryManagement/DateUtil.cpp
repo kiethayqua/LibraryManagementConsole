@@ -49,17 +49,17 @@ bool parse_date(const string &date, int &day, int &month, int &year) {
 
 int get_days_late(const string &start_date, const string &end_date) {
     int start_day, start_month, start_year;
-    int endDay, endMonth, endYear;
+    int end_day, end_month, end_year;
 
     if (!parse_date(start_date, start_day, start_month, start_year) ||
-        !parse_date(end_date, endDay, endMonth, endYear)) {
+        !parse_date(end_date, end_day, end_month, end_year)) {
         return -1;
     }
 
-    const int startDays = date_to_days(start_day, start_month, start_year);
-    const int endDays = date_to_days(endDay, endMonth, endYear);
+    const int start_days = date_to_days(start_day, start_month, start_year);
+    const int end_days = date_to_days(end_day, end_month, end_year);
 
-    return endDays - startDays - 7;
+    return end_days - start_days - 7;
 }
 
 string get_current_date_string() {
