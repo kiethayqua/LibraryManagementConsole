@@ -127,15 +127,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Book.cpp" />
+    <ClCompile Include="BookLoanSlip.cpp" />
+    <ClCompile Include="BookReturnSlip.cpp" />
     <ClCompile Include="Common.cpp" />
+    <ClCompile Include="DateUtil.cpp" />
     <ClCompile Include="LibraryManagement.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Reader.cpp" />
+    <ClCompile Include="Statistics.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Book.h" />
+    <ClInclude Include="BookLoanSlip.h" />
+    <ClInclude Include="BookReturnSlip.h" />
     <ClInclude Include="Common.h" />
+    <ClInclude Include="DateUtil.h" />
+    <ClInclude Include="Globals.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Reader.h" />
+    <ClInclude Include="Statistics.h" />
     <ClInclude Include="VariadicTable.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

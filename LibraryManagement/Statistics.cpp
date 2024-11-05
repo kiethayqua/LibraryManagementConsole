@@ -8,6 +8,7 @@
 #include "Globals.h"
 #include "VariadicTable.h"
 #include "Reader.h"
+#include <string>
 
 void main_statistics() {
     cout << "=================STATISTICS================\n";

@@ -63,11 +63,12 @@ int get_days_late(const string &start_date, const string &end_date) {
 }
 
 string get_current_date_string() {
+    struct tm newtime;
     const time_t now = time(0);
-    const tm *local_time = localtime(&now);
+    localtime_s(&newtime, &now);
     ostringstream date_stream;
-    date_stream << setw(2) << setfill('0') << local_time->tm_mday << "/"
-            << setw(2) << setfill('0') << (local_time->tm_mon + 1) << "/"
-            << (1900 + local_time->tm_year);
+    date_stream << setw(2) << setfill('0') << newtime.tm_mday << "/"
+            << setw(2) << setfill('0') << (newtime.tm_mon + 1) << "/"
+            << (1900 + newtime.tm_year);
     return date_stream.str();
 }

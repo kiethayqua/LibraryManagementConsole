@@ -8,6 +8,7 @@
 #include "DateUtil.h"
 #include "Book.h"
 #include "VariadicTable.h"
+#include <string>
 
 void create_book_return_slip() {
     const string reader_id = input_string("Input the reader ID: ", INPUT_TYPE_NUMBER);
@@ -22,7 +23,7 @@ void create_book_return_slip() {
             cin.ignore();
         } while (number_of_books <= 0 || number_of_books > MAX_BOOKS_CAN_LOAN);
 
-        string return_book_isbn_list[number_of_books], lost_books[MAX_BOOKS_CAN_LOAN];
+        string return_book_isbn_list[MAX_BOOKS_CAN_LOAN], lost_books[MAX_BOOKS_CAN_LOAN];
         int lost_book_count = 0;
         while (book_count < number_of_books) {
             string msg = "Input the book ISBN (" + to_string(book_count + 1) + "): ";

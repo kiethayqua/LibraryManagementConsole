@@ -5,6 +5,7 @@
 #include "Common.h"
 #include "Globals.h"
 #include "VariadicTable.h"
+#include <sstream>
 
 string book_loan_reader_id_records[MAX_RECORDS];
 string book_loan_loan_date_records[MAX_RECORDS];
