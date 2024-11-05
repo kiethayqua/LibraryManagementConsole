@@ -3,6 +3,9 @@
 //
 
 #include "DateUtil.h"
+#include <ctime>
+#include <iomanip>
+#include <sstream>
 
 bool is_leap_year(const int year) {
     return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
@@ -57,4 +60,14 @@ int get_days_late(const string &start_date, const string &end_date) {
     const int endDays = date_to_days(endDay, endMonth, endYear);
 
     return endDays - startDays - 7;
+}
+
+string get_current_date_string() {
+    const time_t now = time(0);
+    const tm *local_time = localtime(&now);
+    ostringstream date_stream;
+    date_stream << setw(2) << setfill('0') << local_time->tm_mday << "/"
+            << setw(2) << setfill('0') << (local_time->tm_mon + 1) << "/"
+            << (1900 + local_time->tm_year);
+    return date_stream.str();
 }

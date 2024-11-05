@@ -5,6 +5,7 @@
 #include "BookLoanSlip.h"
 #include "BookReturnSlip.h"
 #include "Globals.h"
+#include "Statistics.h"
 
 void root_main() {
     init_mock_data();
@@ -47,6 +48,8 @@ void execute_main(const int option) {
             system("pause");
             break;
         case 5:
+            main_statistics();
+            system("pause");
             break;
         case 0:
             cout << "Exit!\n";
@@ -62,7 +65,7 @@ void execute_main(const int option) {
  */
 void init_mock_data() {
     // Mock data for readers
-    reader_records = 1;
+    reader_records = 3;
     reader_name_records[0] = "Nguyen Van A";
     reader_id_records[0] = "123";
     reader_dob_records[0] = "01/01/2001";
@@ -71,6 +74,22 @@ void init_mock_data() {
     reader_address_records[0] = "District 7, HCM City";
     reader_created_date_records[0] = "01/11/2024";
     reader_expired_date_records[0] = "01/11/2026";
+    reader_name_records[1] = "Nguyen Van B";
+    reader_id_records[1] = "234";
+    reader_dob_records[1] = "01/01/2001";
+    reader_gender_records[1] = 0;
+    reader_email_records[1] = "nguyenvanb@gmail.com";
+    reader_address_records[1] = "District 9, HCM City";
+    reader_created_date_records[1] = "01/11/2024";
+    reader_expired_date_records[1] = "01/11/2026";
+    reader_name_records[2] = "Nguyen Thi C";
+    reader_id_records[2] = "345";
+    reader_dob_records[2] = "01/01/2001";
+    reader_gender_records[2] = 1;
+    reader_email_records[2] = "nguyenthic@gmail.com";
+    reader_address_records[2] = "District 8, HCM City";
+    reader_created_date_records[2] = "01/11/2024";
+    reader_expired_date_records[2] = "01/11/2026";
 
     // Mock data for books
     book_records = 3;
@@ -78,34 +97,43 @@ void init_mock_data() {
     book_title_records[0] = "Ngoi Khoc Tren Cay";
     book_author_records[0] = "Nguyen Nhat Anh";
     book_publisher_records[0] = "Kim Dong";
-    book_year_records[0] = "Tinh Cam";
-    book_category_records[0] = "2001";
+    book_year_records[0] = "2001";
+    book_category_records[0] = "Ngon Tinh";
     book_price_records[0] = 50000;
     book_quantity_records[0] = 10;
     book_isbn_records[1] = "234";
     book_title_records[1] = "Mat Biec";
     book_author_records[1] = "Nguyen Nhat Anh";
     book_publisher_records[1] = "Kim Dong";
-    book_year_records[1] = "Tinh Cam";
-    book_category_records[1] = "2001";
+    book_year_records[1] = "2002";
+    book_category_records[1] = "Ngon Tinh";
     book_price_records[1] = 80000;
     book_quantity_records[1] = 10;
     book_isbn_records[2] = "345";
     book_title_records[2] = "Ngay Xua Co Mot Chuyen Tinh";
     book_author_records[2] = "Nguyen Nhat Anh";
     book_publisher_records[2] = "Kim Dong";
-    book_year_records[2] = "Tinh Cam";
-    book_category_records[2] = "2001";
+    book_year_records[2] = "2001";
+    book_category_records[2] = "Tinh Cam";
     book_price_records[2] = 30000;
     book_quantity_records[2] = 10;
 
     // Mock book loan
-    book_loan_records = 1;
+    book_loan_records = 3;
     book_loan_reader_id_records[0] = "123";
-    book_loan_loan_date_records[0] = "01/11/2024";
-    book_loan_estimated_return_date_records[0] = "08/11/2024";
+    book_loan_loan_date_records[0] = "01/10/2024";
+    book_loan_estimated_return_date_records[0] = "08/10/2024";
     book_loan_isbn_list_records[0][0] = "123";
     book_loan_isbn_list_records[0][1] = "234";
     book_loan_isbn_list_records[0][2] = "345";
+    book_loan_reader_id_records[1] = "234";
+    book_loan_loan_date_records[1] = "01/10/2024";
+    book_loan_estimated_return_date_records[1] = "08/10/2024";
+    book_loan_isbn_list_records[1][0] = "123";
+    book_loan_isbn_list_records[1][1] = "234";
+    book_loan_reader_id_records[2] = "345";
+    book_loan_loan_date_records[2] = "01/11/2024";
+    book_loan_estimated_return_date_records[2] = "08/11/2024";
+    book_loan_isbn_list_records[2][0] = "123";
+    book_loan_isbn_list_records[2][1] = "345";
 }
-

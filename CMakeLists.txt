@@ -23,4 +23,6 @@ add_executable(LibraryManagementConsole
         LibraryManagement/BookReturnSlip.h
         LibraryManagement/DateUtil.cpp
         LibraryManagement/DateUtil.h
+        LibraryManagement/Statistics.cpp
+        LibraryManagement/Statistics.h
 )
