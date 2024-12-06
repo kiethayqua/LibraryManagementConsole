@@ -1,3 +1,5 @@
+#pragma warning(disable : 4996)
+
 #include "Main.h"
 #include "Common.h"
 #include "Reader.h"
@@ -73,20 +75,20 @@ void init_data() {
 }
 
 void load_readers() {
-    FILE *fp = fopen("/Users/kietnguyendev/Desktop/24810007/LibraryManagement/LibraryManagement/READERS.txt", "rt");
+    FILE* fp;
+    fopen_s(&fp, "READERS.txt", "rt");
     if (fp == NULL) {
         printf("File is not existed!");
         return;
     }
 
-    int MAX = 500;
+    const int MAX = 500;
     char line[MAX];
     while (fgets(line, MAX, fp) != NULL) {
         // Temporary C-style buffers
         char id[50], name[100], dob[15], email[100], address[200], created_date[15], expired_date[15];
         int gender;
-        sscanf(line, "%[^|]|%[^|]|%[^|]|%d|%[^|]|%[^|]|%[^|]|%[^|]", id, name, dob, &gender, email, address,
-               created_date, expired_date);
+        sscanf(line, "%[^|]|%[^|]|%[^|]|%d|%[^|]|%[^|]|%[^|]|%[^|]", id, name, dob, &gender, email, address, created_date, expired_date);
         readers[reader_records].id = id;
         readers[reader_records].name = name;
         readers[reader_records].dob = dob;
@@ -102,7 +104,8 @@ void load_readers() {
 }
 
 void save_readers() {
-    FILE *fp = fopen("/Users/kietnguyendev/Desktop/24810007/LibraryManagement/LibraryManagement/READERS.txt", "w");
+    FILE* fp;
+    fopen_s(&fp, "READERS.txt", "w");
     if (fp == NULL) return;
 
     for (int i = 0; i < reader_records; i++) {
@@ -116,17 +119,18 @@ void save_readers() {
 }
 
 void load_books() {
-    FILE *fp = fopen("/Users/kietnguyendev/Desktop/24810007/LibraryManagement/LibraryManagement/BOOKS.txt", "rt");
+    FILE* fp;
+    fopen_s(&fp, "BOOKS.txt", "rt");
     if (fp == NULL) {
         printf("File is not existed!");
         return;
     }
 
-    int MAX = 500;
+    const int MAX = 500;
     char line[MAX];
     while (fgets(line, MAX, fp) != NULL) {
         // Temporary C-style buffers
-        char isbn[100], title[100], author[100], publisher[100], year[4], category[100];
+        char isbn[100], title[100], author[100], publisher[100], year[20], category[100];
         long price;
         int quantity;
         sscanf(line, "%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%ld|%d", isbn, title, author, publisher, year, category, &price, &quantity);
@@ -145,7 +149,8 @@ void load_books() {
 }
 
 void save_books() {
-    FILE *fp = fopen("/Users/kietnguyendev/Desktop/24810007/LibraryManagement/LibraryManagement/BOOKS.txt", "w");
+    FILE* fp;
+    fopen_s(&fp, "BOOKS.txt", "w");
     if (fp == NULL) return;
 
     for (int i = 0; i < book_records; i++) {
@@ -158,13 +163,14 @@ void save_books() {
 }
 
 void load_book_loans() {
-    FILE* fp = fopen("/Users/kietnguyendev/Desktop/24810007/LibraryManagement/LibraryManagement/BOOK_LOANS.txt", "rt");
+    FILE* fp;
+    fopen_s(&fp, "BOOK_LOANS.txt", "rt");
     if (fp == NULL) {
         printf("File is not existed!");
         return;
     }
 
-    int MAX = 500;
+    const int MAX = 500;
     char line[MAX];
 
     while (fgets(line, MAX, fp) != NULL) {
@@ -194,7 +200,8 @@ void load_book_loans() {
 }
 
 void save_book_loans() {
-    FILE *fp = fopen("/Users/kietnguyendev/Desktop/24810007/LibraryManagement/LibraryManagement/BOOK_LOANS.txt", "w");
+    FILE* fp;
+    fopen_s(&fp, "BOOK_LOANS.txt", "w");
     if (fp == NULL) return;
 
     for (int i = 0; i < book_loan_records; i++) {
@@ -208,7 +215,6 @@ void save_book_loans() {
                 fprintf(fp, "|%s", isbn.c_str());
             }
         }
-        fprintf(fp, "\n");
     }
 
     fclose(fp);
