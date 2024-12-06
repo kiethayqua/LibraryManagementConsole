@@ -1,0 +1,3 @@
+123|Nguyen Van A|01/01/2001|0|nguyenvana@gmail.com|District 9, HCM City|01/11/2024|01/11/2026
+234|Nguyen Van B|01/02/2001|0|nguyenvanb@gmail.com|District 8, HCM City|01/11/2024|01/11/2026
+345|Nguyen Thi C|01/03/2001|1|nguyenthic@gmail.com|District 2, HCM City|01/11/2024|01/11/2026

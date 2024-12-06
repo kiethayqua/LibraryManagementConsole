@@ -7,15 +7,7 @@
 #include "VariadicTable.h"
 #include "Globals.h"
 
-string book_isbn_records[MAX_RECORDS];
-string book_title_records[MAX_RECORDS];
-string book_author_records[MAX_RECORDS];
-string book_publisher_records[MAX_RECORDS];
-string book_year_records[MAX_RECORDS];
-string book_category_records[MAX_RECORDS];
-long book_price_records[MAX_RECORDS];
-int book_quantity_records[MAX_RECORDS];
-
+Book books[MAX_RECORDS];
 int book_records = 0;
 
 void book_main() {
@@ -83,15 +75,16 @@ void get_books(int from, int to) {
             "Quantity",
         }, 30);
     for (int i = from; i < to; i++) {
+        const Book book = books[i];
         vt.addRow(
-            book_isbn_records[i],
-            book_title_records[i],
-            book_author_records[i],
-            book_publisher_records[i],
-            book_year_records[i],
-            book_category_records[i],
-            book_price_records[i],
-            book_quantity_records[i]
+            book.isbn,
+            book.title,
+            book.author,
+            book.publisher,
+            book.year,
+            book.category,
+            book.price,
+            book.quantity
         );
     }
 
@@ -115,14 +108,14 @@ void create_book() {
     cin.ignore();
 
     if (book_records < MAX_RECORDS) {
-        book_isbn_records[book_records] = isbn;
-        book_title_records[book_records] = book_title;
-        book_author_records[book_records] = author;
-        book_publisher_records[book_records] = publisher;
-        book_year_records[book_records] = publish_year;
-        book_category_records[book_records] = category;
-        book_price_records[book_records] = price;
-        book_quantity_records[book_records] = quantity;
+        books[book_records].isbn = isbn;
+        books[book_records].title = book_title;
+        books[book_records].author = author;
+        books[book_records].publisher = publisher;
+        books[book_records].year = publish_year;
+        books[book_records].category = category;
+        books[book_records].price = price;
+        books[book_records].quantity = quantity;
         book_records++;
     }
 }
@@ -152,14 +145,14 @@ void delete_book() {
             return;
         }
         for (int i = book_index; i < book_records; i++) {
-            book_isbn_records[i] = book_isbn_records[i + 1];
-            book_title_records[i] = book_title_records[i + 1];
-            book_author_records[i] = book_author_records[i + 1];
-            book_publisher_records[i] = book_publisher_records[i + 1];
-            book_year_records[i] = book_year_records[i + 1];
-            book_category_records[i] = book_category_records[i + 1];
-            book_price_records[i] = book_price_records[i + 1];
-            book_quantity_records[i] = book_quantity_records[i + 1];
+            books[i].isbn = books[i + 1].isbn;
+            books[i].title = books[i + 1].title;
+            books[i].author = books[i + 1].author;
+            books[i].publisher = books[i + 1].publisher;
+            books[i].year = books[i + 1].year;
+            books[i].category = books[i + 1].category;
+            books[i].price = books[i + 1].price;
+            books[i].quantity = books[i + 1].quantity;
         }
         book_records--;
     } else {
@@ -192,17 +185,18 @@ void find_books_by_name() {
         }, 30);
 
     for (int i = 0; i < book_records; i++) {
-        const int first_found_index = str_contains(book_title_records[i], book_name);
+        const int first_found_index = str_contains(books[i].title, book_name);
         if (first_found_index != -1) {
+            const Book book = books[i];
             vt.addRow(
-                book_isbn_records[i],
-                book_title_records[i],
-                book_author_records[i],
-                book_publisher_records[i],
-                book_year_records[i],
-                book_category_records[i],
-                book_price_records[i],
-                book_quantity_records[i]
+                book.isbn,
+                book.title,
+                book.author,
+                book.publisher,
+                book.year,
+                book.category,
+                book.price,
+                book.quantity
             );
             have_book = true;
         }
@@ -217,7 +211,7 @@ void find_books_by_name() {
 
 int find_book_by_isbn(const string &isbn) {
     for (int i = 0; i < book_records; i++) {
-        if (isbn == book_isbn_records[i]) return i;
+        if (isbn == books[i].isbn) return i;
     }
     return -1;
 }
@@ -239,36 +233,36 @@ void show_update_book_menu() {
 void execute_update_book(const int option, const int index) {
     switch (option) {
         case 1:
-            book_isbn_records[index] = input_string("Input ISBN: ", "");
+            books[index].isbn = input_string("Input ISBN: ", "");
             break;
         case 2:
-            book_title_records[index] = input_string("Input Title: ", "");
+            books[index].title = input_string("Input Title: ", "");
             break;
         case 3:
-            book_author_records[index] = input_string("Input Author: ", INPUT_TYPE_NAME);
+            books[index].author = input_string("Input Author: ", INPUT_TYPE_NAME);
             break;
         case 4:
-            book_publisher_records[index] = input_string("Input Publisher: ", INPUT_TYPE_NAME);
+            books[index].publisher = input_string("Input Publisher: ", INPUT_TYPE_NAME);
             break;
         case 5:
-            book_year_records[index] = input_string("Input Published Year: ", INPUT_TYPE_YEAR);
+            books[index].year = input_string("Input Published Year: ", INPUT_TYPE_YEAR);
             break;
         case 6:
-            book_category_records[index] = input_string("Input Category: ", "");
+            books[index].category = input_string("Input Category: ", "");
             break;
         case 7:
             long _price;
             cout << "Please input Price: ";
             cin >> _price;
             cin.ignore();
-            book_price_records[index] = _price;
+            books[index].price = _price;
             break;
         case 8:
             int _quantity;
             cout << "Please input Quantity: ";
             cin >> _quantity;
             cin.ignore();
-            book_quantity_records[index] = _quantity;
+            books[index].quantity = _quantity;
             break;
         default:
             break;

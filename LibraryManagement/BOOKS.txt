@@ -1,0 +1,3 @@
+123|Ngoi Khoc Tren Cay|Nguyen Nhat Anh|Kim Dong|2001|Ngon Tinh|50000|10
+234|Mat Biec|Nguyen Nhat Anh|Kim Dong|2001|Ngon Tinh|80000|11
+345|Quan Go Di Len|Nguyen Nhat Anh|Kim Dong|2001|Ngon Tinh|20000|12

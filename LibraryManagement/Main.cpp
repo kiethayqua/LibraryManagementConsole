@@ -8,8 +8,7 @@
 #include "Statistics.h"
 
 void root_main() {
-    // NOTE: this line to call mock data to easy to test
-    init_mock_data();
+    init_data();
     int option;
     do {
         clear_screen();
@@ -53,6 +52,9 @@ void execute_main(const int option) {
             system("pause");
             break;
         case 0:
+            save_readers();
+            save_books();
+            save_book_loans();
             cout << "Exit!\n";
             break;
         default:
@@ -62,79 +64,152 @@ void execute_main(const int option) {
 
 
 /**
- * Call this function to use the mock data
+ * Call this function to load the data from file
  */
-void init_mock_data() {
-    // Mock data for readers
-    reader_records = 3;
-    reader_name_records[0] = "Nguyen Van A";
-    reader_id_records[0] = "123";
-    reader_dob_records[0] = "01/01/2001";
-    reader_gender_records[0] = 0;
-    reader_email_records[0] = "nguyenvana@gmail.com";
-    reader_address_records[0] = "District 7, HCM City";
-    reader_created_date_records[0] = "01/11/2024";
-    reader_expired_date_records[0] = "01/11/2026";
-    reader_name_records[1] = "Nguyen Van B";
-    reader_id_records[1] = "234";
-    reader_dob_records[1] = "01/01/2001";
-    reader_gender_records[1] = 0;
-    reader_email_records[1] = "nguyenvanb@gmail.com";
-    reader_address_records[1] = "District 9, HCM City";
-    reader_created_date_records[1] = "01/11/2024";
-    reader_expired_date_records[1] = "01/11/2026";
-    reader_name_records[2] = "Nguyen Thi C";
-    reader_id_records[2] = "345";
-    reader_dob_records[2] = "01/01/2001";
-    reader_gender_records[2] = 1;
-    reader_email_records[2] = "nguyenthic@gmail.com";
-    reader_address_records[2] = "District 8, HCM City";
-    reader_created_date_records[2] = "01/11/2024";
-    reader_expired_date_records[2] = "01/11/2026";
+void init_data() {
+    load_readers();
+    load_books();
+    load_book_loans();
+}
 
-    // Mock data for books
-    book_records = 3;
-    book_isbn_records[0] = "123";
-    book_title_records[0] = "Ngoi Khoc Tren Cay";
-    book_author_records[0] = "Nguyen Nhat Anh";
-    book_publisher_records[0] = "Kim Dong";
-    book_year_records[0] = "2001";
-    book_category_records[0] = "Ngon Tinh";
-    book_price_records[0] = 50000;
-    book_quantity_records[0] = 10;
-    book_isbn_records[1] = "234";
-    book_title_records[1] = "Mat Biec";
-    book_author_records[1] = "Nguyen Nhat Anh";
-    book_publisher_records[1] = "Kim Dong";
-    book_year_records[1] = "2002";
-    book_category_records[1] = "Ngon Tinh";
-    book_price_records[1] = 80000;
-    book_quantity_records[1] = 10;
-    book_isbn_records[2] = "345";
-    book_title_records[2] = "Ngay Xua Co Mot Chuyen Tinh";
-    book_author_records[2] = "Nguyen Nhat Anh";
-    book_publisher_records[2] = "Kim Dong";
-    book_year_records[2] = "2001";
-    book_category_records[2] = "Tinh Cam";
-    book_price_records[2] = 30000;
-    book_quantity_records[2] = 10;
+void load_readers() {
+    FILE *fp = fopen("/Users/kietnguyendev/Desktop/24810007/LibraryManagement/LibraryManagement/READERS.txt", "rt");
+    if (fp == NULL) {
+        printf("File is not existed!");
+        return;
+    }
 
-    // Mock book loan
-    book_loan_records = 3;
-    book_loan_reader_id_records[0] = "123";
-    book_loan_loan_date_records[0] = "01/10/2024";
-    book_loan_estimated_return_date_records[0] = "08/10/2024";
-    book_loan_isbn_list_records[0][0] = "123";
-    book_loan_isbn_list_records[0][1] = "234";
-    book_loan_isbn_list_records[0][2] = "345";
-    book_loan_reader_id_records[1] = "234";
-    book_loan_loan_date_records[1] = "01/10/2024";
-    book_loan_estimated_return_date_records[1] = "08/10/2024";
-    book_loan_isbn_list_records[1][0] = "123";
-    book_loan_isbn_list_records[1][1] = "234";
-    book_loan_reader_id_records[2] = "345";
-    book_loan_loan_date_records[2] = "01/11/2024";
-    book_loan_estimated_return_date_records[2] = "08/11/2024";
-    book_loan_isbn_list_records[2][0] = "123";
-    book_loan_isbn_list_records[2][1] = "345";
+    int MAX = 500;
+    char line[MAX];
+    while (fgets(line, MAX, fp) != NULL) {
+        // Temporary C-style buffers
+        char id[50], name[100], dob[15], email[100], address[200], created_date[15], expired_date[15];
+        int gender;
+        sscanf(line, "%[^|]|%[^|]|%[^|]|%d|%[^|]|%[^|]|%[^|]|%[^|]", id, name, dob, &gender, email, address,
+               created_date, expired_date);
+        readers[reader_records].id = id;
+        readers[reader_records].name = name;
+        readers[reader_records].dob = dob;
+        readers[reader_records].gender = gender;
+        readers[reader_records].email = email;
+        readers[reader_records].address = address;
+        readers[reader_records].created_date = created_date;
+        readers[reader_records].expired_date = expired_date;
+        reader_records++;
+    }
+
+    fclose(fp);
+}
+
+void save_readers() {
+    FILE *fp = fopen("/Users/kietnguyendev/Desktop/24810007/LibraryManagement/LibraryManagement/READERS.txt", "w");
+    if (fp == NULL) return;
+
+    for (int i = 0; i < reader_records; i++) {
+        const Reader reader = readers[i];
+        fprintf(fp, "%s|%s|%s|%d|%s|%s|%s|%s", reader.id.c_str(), reader.name.c_str(), reader.dob.c_str(),
+                reader.gender, reader.email.c_str(), reader.address.c_str(), reader.created_date.c_str(),
+                reader.expired_date.c_str());
+    }
+
+    fclose(fp);
+}
+
+void load_books() {
+    FILE *fp = fopen("/Users/kietnguyendev/Desktop/24810007/LibraryManagement/LibraryManagement/BOOKS.txt", "rt");
+    if (fp == NULL) {
+        printf("File is not existed!");
+        return;
+    }
+
+    int MAX = 500;
+    char line[MAX];
+    while (fgets(line, MAX, fp) != NULL) {
+        // Temporary C-style buffers
+        char isbn[100], title[100], author[100], publisher[100], year[4], category[100];
+        long price;
+        int quantity;
+        sscanf(line, "%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%ld|%d", isbn, title, author, publisher, year, category, &price, &quantity);
+        books[book_records].isbn = isbn;
+        books[book_records].title = title;
+        books[book_records].author = author;
+        books[book_records].publisher = publisher;
+        books[book_records].year = year;
+        books[book_records].category = category;
+        books[book_records].price = price;
+        books[book_records].quantity = quantity;
+        book_records++;
+    }
+
+    fclose(fp);
+}
+
+void save_books() {
+    FILE *fp = fopen("/Users/kietnguyendev/Desktop/24810007/LibraryManagement/LibraryManagement/BOOKS.txt", "w");
+    if (fp == NULL) return;
+
+    for (int i = 0; i < book_records; i++) {
+        const Book book = books[i];
+        fprintf(fp, "%s|%s|%s|%s|%s|%s|%ld|%d\n", book.isbn.c_str(), book.title.c_str(), book.author.c_str(),
+                book.publisher.c_str(), book.year.c_str(), book.category.c_str(), book.price, book.quantity);
+    }
+
+    fclose(fp);
+}
+
+void load_book_loans() {
+    FILE* fp = fopen("/Users/kietnguyendev/Desktop/24810007/LibraryManagement/LibraryManagement/BOOK_LOANS.txt", "rt");
+    if (fp == NULL) {
+        printf("File is not existed!");
+        return;
+    }
+
+    int MAX = 500;
+    char line[MAX];
+
+    while (fgets(line, MAX, fp) != NULL) {
+        BookLoan& loan = book_loans[book_loan_records];
+        char reader_id[50], loan_date[20], estimated_return_date[20];
+        char isbn[MAX_BOOKS_CAN_LOAN][20] = {{0}};
+
+        int fields_read = sscanf(
+            line, "%49[^|]|%19[^|]|%19[^|]|%19[^|]|%19[^|]|%19[^|]",
+            reader_id, loan_date, estimated_return_date,
+            isbn[0], isbn[1], isbn[2]
+        );
+        loan.reader_id = reader_id;
+        loan.loan_date = loan_date;
+        loan.estimated_return_date = estimated_return_date;
+
+        for (int i = 3; i < fields_read; ++i) {
+            if (i - 3 < MAX_BOOKS_CAN_LOAN) {
+                loan.isbn_list[i - 3] = isbn[i - 3];
+            }
+        }
+
+        ++book_loan_records;
+    }
+
+    fclose(fp);
+}
+
+void save_book_loans() {
+    FILE *fp = fopen("/Users/kietnguyendev/Desktop/24810007/LibraryManagement/LibraryManagement/BOOK_LOANS.txt", "w");
+    if (fp == NULL) return;
+
+    for (int i = 0; i < book_loan_records; i++) {
+        const BookLoan book_loan = book_loans[i];
+        fprintf(fp, "%s|%s|%s",
+                book_loan.reader_id.c_str(),
+                book_loan.loan_date.c_str(),
+                book_loan.estimated_return_date.c_str());
+        for (const auto& isbn : book_loan.isbn_list) {
+            if (!isbn.empty()) {
+                fprintf(fp, "|%s", isbn.c_str());
+            }
+        }
+        fprintf(fp, "\n");
+    }
+
+    fclose(fp);
 }

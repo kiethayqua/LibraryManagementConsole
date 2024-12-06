@@ -65,7 +65,11 @@ int get_days_late(const string &start_date, const string &end_date) {
 string get_current_date_string() {
     struct tm newtime;
     const time_t now = time(0);
+    #if defined _WIN32
     localtime_s(&newtime, &now);
+    #elif defined (__APPLE__)
+    localtime_r(&now, &newtime);
+    #endif
     ostringstream date_stream;
     date_stream << setw(2) << setfill('0') << newtime.tm_mday << "/"
             << setw(2) << setfill('0') << (newtime.tm_mon + 1) << "/"

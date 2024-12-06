@@ -3,16 +3,7 @@
 #include "Common.h"
 #include "Globals.h"
 
-string reader_name_records[MAX_RECORDS];
-string reader_id_records[MAX_RECORDS];
-string reader_dob_records[MAX_RECORDS];
-// 0: male 1: female
-int reader_gender_records[MAX_RECORDS];
-string reader_email_records[MAX_RECORDS];
-string reader_address_records[MAX_RECORDS];
-string reader_created_date_records[MAX_RECORDS];
-string reader_expired_date_records[MAX_RECORDS];
-
+Reader readers[MAX_RECORDS];
 int reader_records = 0;
 
 void reader_main() {
@@ -68,7 +59,7 @@ void execute_reader(const int option) {
     }
 }
 
-void get_reader_records(int from, int to) {
+void get_reader_records(const int from, const int to) {
     VariadicTable<string, string, string, string, string, string, string, string> vt({
             "Identification Card",
             "Name",
@@ -80,15 +71,16 @@ void get_reader_records(int from, int to) {
             "Expired Date"
         }, 30);
     for (int i = from; i < to; i++) {
+        const Reader reader = readers[i];
         vt.addRow(
-            reader_id_records[i],
-            reader_name_records[i],
-            reader_dob_records[i],
-            (reader_gender_records[i] == 0) ? "Male" : "Female",
-            reader_email_records[i],
-            reader_address_records[i],
-            reader_created_date_records[i],
-            reader_expired_date_records[i]
+            reader.id,
+            reader.name,
+            reader.dob,
+            (reader.gender == 0) ? "Male" : "Female",
+            reader.email,
+            reader.address,
+            reader.created_date,
+            reader.expired_date
         );
     }
 
@@ -106,14 +98,14 @@ void create_reader() {
     string expired_date = input_string("Please input expired date: ", INPUT_TYPE_DATE);
 
     if (reader_records < MAX_RECORDS) {
-        reader_id_records[reader_records] = id;
-        reader_name_records[reader_records] = name;
-        reader_dob_records[reader_records] = dob;
-        reader_gender_records[reader_records] = gender;
-        reader_email_records[reader_records] = email;
-        reader_address_records[reader_records] = address;
-        reader_created_date_records[reader_records] = created_date;
-        reader_expired_date_records[reader_records] = expired_date;
+        readers[reader_records].id = id;
+        readers[reader_records].name = name;
+        readers[reader_records].dob = dob;
+        readers[reader_records].gender = gender;
+        readers[reader_records].email = email;
+        readers[reader_records].address = address;
+        readers[reader_records].created_date = created_date;
+        readers[reader_records].expired_date = expired_date;
         reader_records++;
     }
 }
@@ -143,14 +135,14 @@ void delete_reader() {
             return;
         }
         for (int i = reader_card_index; i < reader_records; i++) {
-            reader_name_records[i] = reader_name_records[i + 1];
-            reader_id_records[i] = reader_id_records[i + 1];
-            reader_dob_records[i] = reader_dob_records[i + 1];
-            reader_gender_records[i] = reader_gender_records[i + 1];
-            reader_email_records[i] = reader_email_records[i + 1];
-            reader_address_records[i] = reader_address_records[i + 1];
-            reader_created_date_records[i] = reader_created_date_records[i + 1];
-            reader_expired_date_records[i] = reader_expired_date_records[i + 1];
+            readers[i].name = readers[i + 1].name;
+            readers[i].id = readers[i + 1].id;
+            readers[i].dob = readers[i + 1].dob;
+            readers[i].gender = readers[i + 1].gender;
+            readers[i].email = readers[i + 1].email;
+            readers[i].address = readers[i + 1].address;
+            readers[i].created_date = readers[i + 1].created_date;
+            readers[i].expired_date = readers[i + 1].expired_date;
         }
         reader_records--;
     } else {
@@ -163,8 +155,7 @@ void find_reader_by_id() {
     const int reader_card_index = find_reader_by_id(reader_id);
     if (reader_card_index != -1) {
         get_reader_records(reader_card_index, reader_card_index + 1);
-    }
-    else {
+    } else {
         cout << "The reader is not exist!" << endl;
     }
 }
@@ -184,33 +175,33 @@ void find_readers_by_name() {
         }, 30);
 
     for (int i = 0; i < reader_records; i++) {
-        int first_found_index = str_contains(reader_name_records[i], reader_name);
+        const int first_found_index = str_contains(readers[i].name, reader_name);
         if (first_found_index != -1) {
+            const Reader reader = readers[i];
             vt.addRow(
-                reader_id_records[i],
-                reader_name_records[i],
-                reader_dob_records[i],
-                (reader_gender_records[i] == 0) ? "Male" : "Female",
-                reader_email_records[i],
-                reader_address_records[i],
-                reader_created_date_records[i],
-                reader_expired_date_records[i]
+                reader.id,
+                reader.name,
+                reader.dob,
+                (reader.gender == 0) ? "Male" : "Female",
+                reader.email,
+                reader.address,
+                reader.created_date,
+                reader.expired_date
             );
             have_reader = true;
         }
     }
-    
+
     if (have_reader) {
         vt.print(cout);
-    }
-    else {
+    } else {
         cout << "The reader is not exist!" << endl;
     }
 }
 
-int find_reader_by_id(const string& id) {
+int find_reader_by_id(const string &id) {
     for (int i = 0; i < reader_records; i++) {
-        if (id == reader_id_records[i]) return i;
+        if (id == readers[i].id) return i;
     }
     return -1;
 }
@@ -232,32 +223,30 @@ void show_update_reader_menu() {
 void execute_update_reader(const int option, const int index) {
     switch (option) {
         case 1:
-            reader_name_records[index] = input_string("Input Name: ", INPUT_TYPE_NAME);
+            readers[index].name = input_string("Input Name: ", INPUT_TYPE_NAME);
             break;
         case 2:
-            reader_id_records[index] = input_string("Input ID: ", INPUT_TYPE_NUMBER);
+            readers[index].id = input_string("Input ID: ", INPUT_TYPE_NUMBER);
             break;
         case 3:
-            reader_dob_records[index] = input_string("Input Date: ", INPUT_TYPE_DATE);
+            readers[index].dob = input_string("Input Date: ", INPUT_TYPE_DATE);
             break;
         case 4:
-            reader_gender_records[index] = input_gender();
+            readers[index].gender = input_gender();
             break;
         case 5:
-            reader_email_records[index] = input_string("Input Email: ", INPUT_TYPE_EMAIL);
+            readers[index].email = input_string("Input Email: ", INPUT_TYPE_EMAIL);
             break;
         case 6:
-            reader_address_records[index] = input_string("Input Address: ", "");
+            readers[index].address = input_string("Input Address: ", "");
             break;
         case 7:
-            reader_created_date_records[index] = input_string("Input Date: ", INPUT_TYPE_DATE);
+            readers[index].created_date = input_string("Input Date: ", INPUT_TYPE_DATE);
             break;
         case 8:
-            reader_expired_date_records[index] = input_string("Input Date: ", INPUT_TYPE_DATE);
+            readers[index].expired_date = input_string("Input Date: ", INPUT_TYPE_DATE);
             break;
         default:
             break;
     }
 }
-
-

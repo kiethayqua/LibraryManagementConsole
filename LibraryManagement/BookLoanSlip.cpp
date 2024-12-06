@@ -7,10 +7,7 @@
 #include "VariadicTable.h"
 #include <sstream>
 
-string book_loan_reader_id_records[MAX_RECORDS];
-string book_loan_loan_date_records[MAX_RECORDS];
-string book_loan_estimated_return_date_records[MAX_RECORDS];
-string book_loan_isbn_list_records[MAX_RECORDS][MAX_BOOKS_CAN_LOAN];
+BookLoan book_loans[MAX_RECORDS];
 int book_loan_records = 0;
 
 void create_book_loan_slip() {
@@ -19,9 +16,9 @@ void create_book_loan_slip() {
     if (valid_reader) {
         const string loan_date = input_string("Input loan date: ", INPUT_TYPE_DATE);
         const string estimated_return_date = input_string("Input estimated return date: ", INPUT_TYPE_DATE);
-        book_loan_reader_id_records[book_loan_records] = reader_id;
-        book_loan_loan_date_records[book_loan_records] = loan_date;
-        book_loan_estimated_return_date_records[book_loan_records] = estimated_return_date;
+        book_loans[book_loan_records].reader_id = reader_id;
+        book_loans[book_loan_records].loan_date = loan_date;
+        book_loans[book_loan_records].estimated_return_date = estimated_return_date;
         int number_of_books, book_count = 0;
         string book_list;
         do {
@@ -35,7 +32,7 @@ void create_book_loan_slip() {
             string book_isbn = input_string(msg, "");
             const bool valid_book = check_book(book_isbn);
             if (valid_book) {
-                book_loan_isbn_list_records[book_loan_records][book_count] = book_isbn;
+                book_loans[book_loan_records].isbn_list[book_count] = book_isbn;
                 book_list += get_book_by_isbn(book_isbn) + ", ";
                 book_count++;
             }
@@ -63,7 +60,7 @@ bool check_reader(const string &reader_id) {
     bool is_loan_exists = false;
 
     for (int i = 0; i < reader_records; i++) {
-        if (reader_id_records[i] == reader_id) {
+        if (readers[i].id == reader_id) {
             is_reader_exists = true;
             break;
         }
@@ -75,7 +72,7 @@ bool check_reader(const string &reader_id) {
     }
 
     for (int i = 0; i < book_loan_records; i++) {
-        if (book_loan_reader_id_records[i] == reader_id) {
+        if (book_loans[i].reader_id == reader_id) {
             is_loan_exists = true;
             break;
         }
@@ -93,7 +90,7 @@ bool check_book(const string &book_isbn) {
     bool is_book_exists = false;
 
     for (int i = 0; i < book_records; i++) {
-        if (book_isbn_records[i] == book_isbn) {
+        if (books[i].isbn == book_isbn) {
             is_book_exists = true;
             break;
         }
@@ -110,8 +107,8 @@ bool check_book(const string &book_isbn) {
 string get_book_by_isbn(const string &book_isbn) {
     string result;
     for (int i = 0; i < book_records; i++) {
-        if (book_isbn_records[i] == book_isbn) {
-            result += book_isbn_records[i] + " - " + book_title_records[i];
+        if (books[i].isbn == book_isbn) {
+            result += books[i].isbn + " - " + books[i].title;
         }
     }
 

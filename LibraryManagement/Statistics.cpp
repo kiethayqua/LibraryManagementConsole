@@ -30,8 +30,8 @@ void books_statistics() {
     int books_by_category[MAX_RECORDS];
 
     for (int i = 0; i < book_records; i++) {
-        const int quantity = book_quantity_records[i];
-        string category = book_category_records[i];
+        const int quantity = books[i].quantity;
+        string category = books[i].category;
         number_of_books += quantity;
         const int cat_index = index_of_category(categories, category_count, category);
         if (cat_index != -1) {
@@ -54,7 +54,7 @@ void reader_statistics() {
     int number_of_readers = 0, number_of_males = 0, number_of_females = 0;
     for (int i = 0; i < reader_records; i++) {
         number_of_readers++;
-        if (reader_gender_records[i] == 0) {
+        if (readers[i].gender == 0) {
             number_of_males++;
         } else {
             number_of_females++;
@@ -73,12 +73,12 @@ void book_loan_statistics() {
 
     for (int i = 0; i < book_loan_records; i++) {
         for (int j = 0; j < MAX_BOOKS_CAN_LOAN; j++) {
-            if (!book_loan_isbn_list_records[i][j].empty()) {
+            if (!book_loans[i].isbn_list[j].empty()) {
                 number_loaning_books++;
             }
         }
 
-        if (get_days_late(book_loan_loan_date_records[i], current_date) > 0) {
+        if (get_days_late(book_loans[i].loan_date, current_date) > 0) {
             index_of_late[late_count] = i;
             late_count++;
         }
@@ -98,16 +98,17 @@ void book_loan_statistics() {
         }, 30);
 
     for (int i = 0; i < late_count; i++) {
-        const int reader_index = find_reader_by_id(book_loan_reader_id_records[index_of_late[i]]);
+        const int reader_index = find_reader_by_id(book_loans[index_of_late[i]].reader_id);
+        const Reader reader = readers[reader_index];
         vt.addRow(
-            reader_id_records[reader_index],
-            reader_name_records[reader_index],
-            reader_dob_records[reader_index],
-            (reader_gender_records[reader_index] == 0) ? "Male" : "Female",
-            reader_email_records[reader_index],
-            reader_address_records[reader_index],
-            reader_created_date_records[reader_index],
-            reader_expired_date_records[reader_index]
+            reader.id,
+            reader.name,
+            reader.dob,
+            (reader.gender == 0) ? "Male" : "Female",
+            reader.email,
+            reader.address,
+            reader.created_date,
+            reader.expired_date
         );
     }
 

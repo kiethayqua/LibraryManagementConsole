@@ -15,7 +15,7 @@ void create_book_return_slip() {
     int loan_index = book_loan_slip_index(reader_id);
     if (loan_index != -1) {
         string return_date = input_string("Input the return date: ", INPUT_TYPE_DATE);
-        int days_late = get_days_late(book_loan_loan_date_records[loan_index], return_date);
+        int days_late = get_days_late(book_loans[loan_index].loan_date, return_date);
         int number_of_books, book_count = 0;
         do {
             cout << "Input number of books need to return (Upto 3 books): ";
@@ -35,13 +35,13 @@ void create_book_return_slip() {
         for (int i = 0; i < MAX_BOOKS_CAN_LOAN; i++) {
             bool is_exist = false;
             for (int j = 0; j < book_count; j++) {
-                if (book_loan_isbn_list_records[loan_index][i] == return_book_isbn_list[j]) {
+                if (book_loans[loan_index].isbn_list[i] == return_book_isbn_list[j]) {
                     is_exist = true;
                     break;
                 }
             }
             if (!is_exist) {
-                lost_books[lost_book_count] = book_loan_isbn_list_records[loan_index][i];
+                lost_books[lost_book_count] = book_loans[loan_index].isbn_list[i];
                 lost_book_count++;
             }
         }
@@ -58,8 +58,8 @@ void create_book_return_slip() {
             for (int i = 0; i < lost_book_count; i++) {
                 int book_index = find_book_by_isbn(lost_books[i]);
                 if (book_index != -1) {
-                    book_list += book_isbn_records[book_index] + " - " + book_title_records[book_index];
-                    fees += book_price_records[book_index] * 2;
+                    book_list += books[book_index].isbn + " - " + books[book_index].title;
+                    fees += books[book_index].price * 2;
                 }
             }
         }
@@ -74,7 +74,7 @@ void create_book_return_slip() {
                                                          }, 30);
         vt.addRow(
             reader_id,
-            book_loan_loan_date_records[loan_index],
+            book_loans[loan_index].loan_date,
             return_date,
             book_list
         );
@@ -87,11 +87,11 @@ void create_book_return_slip() {
             return;
         }
         for (int i = loan_index; i < book_loan_records; i++) {
-            book_loan_reader_id_records[i] = book_loan_reader_id_records[i + 1];
-            book_loan_loan_date_records[i] = book_loan_loan_date_records[i + 1];
-            book_loan_estimated_return_date_records[i] = book_loan_estimated_return_date_records[i + 1];
+            book_loans[i].reader_id = book_loans[i + 1].reader_id;
+            book_loans[i].loan_date = book_loans[i + 1].loan_date;
+            book_loans[i].estimated_return_date = book_loans[i + 1].estimated_return_date;
             for (int j = 0; j < MAX_BOOKS_CAN_LOAN; j++) {
-                book_loan_isbn_list_records[i][j] = book_loan_isbn_list_records[i + 1][j];
+                book_loans[i].isbn_list[j] = book_loans[i + 1].isbn_list[j];
             }
         }
         book_loan_records--;
@@ -104,7 +104,7 @@ int book_loan_slip_index(const string &reader_id) {
     bool is_loan_exists = false;
 
     for (int i = 0; i < reader_records; i++) {
-        if (reader_id_records[i] == reader_id) {
+        if (readers[i].id == reader_id) {
             is_reader_exists = true;
             break;
         }
@@ -116,7 +116,7 @@ int book_loan_slip_index(const string &reader_id) {
     }
 
     for (int i = 0; i < book_loan_records; i++) {
-        if (book_loan_reader_id_records[i] == reader_id) {
+        if (book_loans[i].reader_id == reader_id) {
             is_loan_exists = true;
             result = i;
             break;

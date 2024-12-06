@@ -13,36 +13,45 @@ using namespace std;
 /**
  * Global variables represent the readers
  */
-extern string reader_name_records[MAX_RECORDS];
-extern string reader_id_records[MAX_RECORDS];
-extern string reader_dob_records[MAX_RECORDS];
-extern int reader_gender_records[MAX_RECORDS]; // Only 0 or 1 (0: Male, 1: Female)
-extern string reader_email_records[MAX_RECORDS];
-extern string reader_address_records[MAX_RECORDS];
-extern string reader_created_date_records[MAX_RECORDS];
-extern string reader_expired_date_records[MAX_RECORDS];
+struct Reader {
+    string id;
+    string name;
+    string dob;
+    int gender;
+    string email;
+    string address;
+    string created_date;
+    string expired_date;
+};
+extern Reader readers[MAX_RECORDS];
 extern int reader_records;
 
 /**
  * Global variables represent the books
  */
-extern string book_isbn_records[MAX_RECORDS];
-extern string book_title_records[MAX_RECORDS];
-extern string book_author_records[MAX_RECORDS];
-extern string book_publisher_records[MAX_RECORDS];
-extern string book_year_records[MAX_RECORDS];
-extern string book_category_records[MAX_RECORDS];
-extern long book_price_records[MAX_RECORDS];
-extern int book_quantity_records[MAX_RECORDS];
+struct Book {
+    string isbn;
+    string title;
+    string author;
+    string publisher;
+    string year;
+    string category;
+    long price;
+    int quantity;
+};
+extern Book books[MAX_RECORDS];
 extern int book_records;
 
 /**
  * Global variables represent the book loan slip
  */
-extern string book_loan_reader_id_records[MAX_RECORDS];
-extern string book_loan_loan_date_records[MAX_RECORDS];
-extern string book_loan_estimated_return_date_records[MAX_RECORDS];
-extern string book_loan_isbn_list_records[MAX_RECORDS][MAX_BOOKS_CAN_LOAN];
+struct BookLoan {
+    string reader_id;
+    string loan_date;
+    string estimated_return_date;
+    string isbn_list[MAX_BOOKS_CAN_LOAN];
+};
+extern BookLoan book_loans[MAX_RECORDS];
 extern int book_loan_records;
 
 #endif //GLOBALS_H
